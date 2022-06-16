@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  gather_facts: yes
+  #vars_files:
+  #  - ../../defaults/main.yml
+  #vars:
+
+
+  tasks:
+    - name: "Include pve_deploy_vm"
+      include_role:
+        name: "pve_deploy_vm"
+
+  #roles:
+    #- role: habbis.pve_deploy_vm
