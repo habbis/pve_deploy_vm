@@ -1,13 +1,11 @@
 ---
-- name: setup puppet agent
-  gather_facts: yes
+- name: deploy vm pve
+  gather_facts: false
   remote_user: root
   #remote_user: ansible
   #become: yes
   #become_method: sudo
-  hosts: test
-  #hosts: puppet-clients
-  #hosts: all
+  hosts: pve
   vars_files:
     -  defaults/main.yml
     #-  defaults/secrets.yml
