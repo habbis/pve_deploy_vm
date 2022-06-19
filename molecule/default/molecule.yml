@@ -18,14 +18,14 @@ provisioner:
 scenario:
   test_sequence:
     - lint
-    - destroy
-    - dependency
-    - syntax
-    - create
-    - prepare
-    - converge
-    - idempotence
-    - check
-    - side_effect
-    - verify
-    - destroy
+    #- destroy
+    #- dependency
+    #- syntax
+    #- create
+    #- prepare
+    #- converge
+    #- idempotence
+    #- check
+    #- side_effect
+    #- verify
+    #- destroy

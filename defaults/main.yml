@@ -1,2 +1,24 @@
 ---
-# variables
+
+dns_server: 10.17.2.2
+dns_server_port: 5300
+zone: no.habbfarm.net
+
+nameservers1: 10.17.2.2
+nameservers2: 10.17.2.3
+
+vmname: hf-test
+vmip: 10.31.22.2
+gateway: 10.31.22
+netmask: 24
+vlanid: 22
+bridge: vmbr0
+
+proxmox_node: hf-pve02
+ram: 1024
+cpu: 1
+storage: local-ceph
+template: deb11-tmpl-vm
+# yes for full clone no for linked clone 
+linked_or_full_clone: yes
+#disk_type: 

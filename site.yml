@@ -8,7 +8,7 @@
   hosts: pve
   vars_files:
     -  defaults/main.yml
-    #-  defaults/secrets.yml
+    -  defaults/secrets.yml
 
   roles:
     - { role: ../pve_deploy_vm }

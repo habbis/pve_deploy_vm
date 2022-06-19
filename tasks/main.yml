@@ -1,19 +1,4 @@
 ---
-- name: Create new VM using Cloud-Init with an ssh key
-  community.general.proxmox_kvm:
-    node: sabrewulf
-    api_user: root@pam
-    api_password: secret
-    api_host: helldorado
-    name: spynal
-    ide:
-      ide2: 'local:cloudinit,format=qcow2'
-    sshkeys: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILJkVm98B71lD5XHfihwcYHE9TVpsJmK1vR1JcaU82L+'
-    searchdomains: 'no.habbfarm.net'
-    nameservers:
-      - '10.17.2.2'
-      - '10.17.2.3'
-    net:
-      net0: 'virtio,bridge={{ brideg}},tag=77'
-    ipconfig:
-      ipconfig0: 'ip={{ ip_address }}/netmask'
+#- include_tasks: add_dns_record.yml
+
+- include_tasks: deploy_vm.yml
