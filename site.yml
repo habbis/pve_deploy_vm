@@ -5,7 +5,7 @@
   #remote_user: ansible
   #become: yes
   #become_method: sudo
-  hosts: pve
+  hosts: localhost
   vars_files:
     -  defaults/main.yml
     -  defaults/secrets.yml

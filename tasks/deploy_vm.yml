@@ -5,17 +5,19 @@
     api_password: "{{ proxmox_password }}"
     api_host: "{{ proxmox_hostname }}"
     clone: "{{ template }}"
-    name: "{{ vmname }}.{{ zone }}"
+    name: "{{ vmname }}{{ item}}.{{ zone }}"
     memory: "{{ ram }}"
     cpu: "{{ cpu }}"
     #update: yes
     balloon: "{{ ram }}"
     storage: "{{ storage }}"
-    full: "{{ linked_or_full_clone }}"
+    #full: "{{ linked_or_full_clone }}"
     #format: "{{ disk_type }}"
-    #timeout: 500
+    timeout: 900
     state: present
   #when: static_ip
+  delegate_to: localhost
+  with_sequence: start=1 end="{{ vm_count }}"
 
 - name: updarte setting static_ip
   community.general.proxmox_kvm:
@@ -23,25 +25,23 @@
     api_user: "{{ proxmox_username}}"
     api_password: "{{ proxmox_password }}"
     api_host: "{{ proxmox_hostname }}"
-    name: "{{ vmname }}.{{ zone }}"
+    name: "{{ vmname }}{{ item}}.{{ zone }}"
     hotplug: 'network,disk,cpu,memory,usb'
     #memory: "{{ ram }}"
-    balloon: "{{ ballon_size }}"
+    #balloon: "{{ ballon_size }}"
     #cpu: "{{ cpu }}"
     numa_enabled: yes
-    #update: yes
-    #storage: "{{ storage }}"
-    full: "{{ linked_or_full_clone }}"
-    format: "{{ disk_type }}"
     searchdomains: '{{ zone }}'
     nameservers: "{{ nameservers }}"
     net:
       net0: 'virtio,bridge={{ bridge }},tag={{ vlanid }}'
     ipconfig:
-      ipconfig0: 'ip={{ vmip }}/{{ netmask }},10.31.{{ vlanid }}.1'
+      ipconfig0: 'ip=10.31.{{ vlanid }}.{{ 1 + item|int }}/{{ netmask }},gw=10.31.{{ vlanid }}.1'
     update: yes
     #timeout: 500
     state: present
+  delegate_to: localhost
+  with_sequence: start=1 end="{{ vm_count }}"
 
 - name: start vm
   community.general.proxmox_kvm:
@@ -49,6 +49,8 @@
     api_user: "{{ proxmox_username}}"
     api_password: "{{ proxmox_password }}"
     api_host: "{{ proxmox_hostname }}"
-    name: "{{ vmname }}.{{ zone }}"
+    name: "{{ vmname }}{{ item }}.{{ zone }}"
     state: started
     timeout: 30
+  delegate_to: localhost
+  with_sequence: start=1 end="{{ vm_count }}"
